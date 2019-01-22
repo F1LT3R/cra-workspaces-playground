@@ -1,0 +1,66 @@
+{
+  "private": true,
+  "name": "@root/monorepo",
+  "scripts": {
+    "test": "jest"
+  },
+  "workspaces": {
+    "packages": [
+      "packages/scripts/*",
+      "packages/apps/suite1/*",
+      "packages/libs/suite1/*"
+    ],
+    "nohoist": [
+      "**/webpack-dev-server",
+      "**/babel-loader"
+    ]
+  },
+  "devDependencies": {
+    "lerna": "^3.5.1"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "packages/**/src/**/*.{js,jsx,ts,tsx}"
+    ],
+    "resolver": "<rootDir>/node_modules/jest-pnp-resolver/index.js",
+    "setupFiles": [
+      "<rootDir>/node_modules/react-app-polyfill/jsdom.js",
+      "<rootDir>/scripts/test/setupTests.js",
+      "jest-prop-type-error"
+    ],
+    "testMatch": [
+      "<rootDir>/packages/**/src/**/__tests__/**/*.{js,jsx,ts,tsx}",
+      "<rootDir>/packages/**/src/**?(*.)(spec|test).{js,jsxmts,tsx}"
+    ],
+    "testEnvironment": "jsdom",
+    "testURL": "http://localhost",
+    "transform": {
+      "^.+\\.(js|jsx|ts|tsx)$": "<rootDir>/scripts/test/babelTransform.js",
+      "^.+\\.css$": "<rootDir>/scripts/test/cssTransform.js",
+      "^(?!.*\\.(js|jsx|ts|tsx|css|json)$)": "<rootDir>/scripts/test/fileTransform.js"
+    },
+    "transformIgnorePatterns": [
+      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|ts|tsx)$",
+      "^.+\\.module\\.(css|sass|scss)$"
+    ],
+    "moduleNameMapper": {
+      "^react-native$": "react-native-web",
+      "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy"
+    },
+    "moduleFileExtensions": [
+      "web.js",
+      "js",
+      "web.ts",
+      "ts",
+      "web.tsx",
+      "tsx",
+      "json",
+      "web.jsx",
+      "jsx",
+      "node"
+    ]
+  },
+  "dependencies": {
+    "jest-prop-type-error": "^1.1.0"
+  }
+}
